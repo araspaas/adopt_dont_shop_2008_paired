@@ -1,6 +1,7 @@
-<h1>Welcom to <%= @shelter.name %> Home Page</h1>
+<h1>Welcome to <%= @shelter.name %> Home Page</h1>
 
 <p>Shelter Address: <%= @shelter.address%></p>
 <p>Shelter City: <%= @shelter.city %></p>
 <p>Shelter State: <%= @shelter.state %></p>
-<p>Shelter Zip: <%= @shelter.zip %></p>
+<p>Shelter Zip: <%= @shelter.zip %></p><br>
+<%= link_to "Update Shelter", "/shelters/#{@shelter.id}/edit" %><br>
