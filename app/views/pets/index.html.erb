@@ -1,0 +1,9 @@
+<h1>All Pets</h1>
+
+  <% @pets.each do |pet| %>
+    <%= pet.image %>
+    <p>Name: <%= pet.name %>
+    <p>Age: <%= pet.age %>
+    <p>Sex: <%= pet.sex %>
+    <p>Belongs To: <%= pet.shelter.name %></p>
+  <% end %>
