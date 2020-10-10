@@ -27,7 +27,6 @@ describe "as a visitor" do
       expect(current_path).to eq("/shelters/#{shelter_1.id}/pets")
 
       expect(page).to have_content("Pet Name")
-      expect(page).to have_content("placeholder")
       expect(page).to have_content("2")
       expect(page).to have_content("you decide")
       expect(page).to have_content("adoptable")

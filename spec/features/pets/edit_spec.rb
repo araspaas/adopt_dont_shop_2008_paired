@@ -20,7 +20,6 @@ describe "As a visitor" do
       click_on "Update Pet"
 
       expect(current_path).to eq("/pets/#{pet1.id}")
-      expect(page).to have_content(pet1.image)
       expect(page).to have_content("Mrs Bigglesworth")
       expect(page).to have_content(pet1.age)
       expect(page).to have_content(pet1.sex)
