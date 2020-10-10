@@ -1,6 +1,8 @@
 <h1>Welcome to the Shelters Home Page</h1>
 
 <% @shelters.each do |shelter| %>
- <%= shelter.name %><br><br>
+<section class="shelter-<%= shelter.id %>">
+  <%= shelter.name %> <%= link_to "Update Shelter", "/shelters/#{shelter.id}/edit" %><br><br><br>
+</section>
 <% end %>
 <%= link_to "New Shelter", "/shelters/new" %>
