@@ -6,6 +6,16 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
-4.times do
-  FactoryBot.create(:shelter)
-end
+# 4.times do
+#   FactoryBot.create(:shelter)
+# end
+
+shelter1 = Shelter.create(name: "Van's pet shop", address: "3724 tennessee dr", city: "Rockford", state: "Illinois", zip: "61108")
+shelter2 = Shelter.create(name: "Bovice's pet shop", address: "1060 W Addison", city: "Chicago", state: "Illinois", zip: "61109")
+shelter3 = Shelter.create(name: "Jared's pet shop", address: "343 Bungie Dr", city: "Littleton", state: "Colorado", zip: "80128")
+shelter4 = Shelter.create(name: "Old Greg's pet shop", address: "115 rona st", city: "Denver", state: "Colorado", zip: "80200")
+
+shelter1.pets.create(image: "https://img.webmd.com/dtmcms/live/webmd/consumer_assets/site_images/article_thumbnails/other/dog_cool_summer_slideshow/1800x1200_dog_cool_summer_other.jpg", name: "Bella", age: "5", sex: "female", description: "Fun Loving Dog", status: 0)
+shelter2.pets.create(image: "https://static.insider.com/image/5d24d6b921a861093e71fef3.jpg", name: "Maisy", age: "6", sex: "female", description: "Stomache on legs", status: 0)
+shelter3.pets.create(image: "https://media.wired.com/photos/5cdefb92b86e041493d389df/master/pass/Culture-Grumpy-Cat-487386121.jpg", name: "Mr. Cat", age: "9", sex: "male", description: "Has Russian accent", status: 0)
+shelter4.pets.create(image: "https://i.dailymail.co.uk/1s/2020/03/20/13/26207684-0-image-a-4_1584711978894.jpg", name: "Frank", age: "3", sex: "male", description: "He's a snake. does snake things", status: 0)
