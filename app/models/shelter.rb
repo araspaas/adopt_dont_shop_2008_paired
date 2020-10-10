@@ -5,4 +5,9 @@ class Shelter < ApplicationRecord
                         :city,
                         :state,
                         :zip
+
+
+  def count_pets
+    pets.count
+  end
 end

@@ -8,6 +8,7 @@
   <h3>Approximate Age: <%= pet.age %></h3>
   <h3>Sex: <%= pet.sex %></h3>
   <h3>Adoption Status: <%= pet.status %></h3>
+  <h3>Pets in this shelter: <%= @shelter.count_pets %></h3>
   <%= link_to "Update Pet", "/pets/#{pet.id}/edit" %><br>
   <%= link_to "Delete Pet", "/pets/#{pet.id}/delete", method: :delete %><br><br>
   </section>
