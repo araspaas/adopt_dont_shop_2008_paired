@@ -3,7 +3,7 @@
   <% @pets.each do |pet| %>
     <section class="pets-<%= pet.id %>">
       <img class="pet-image" src=<%= pet.image %>>
-      <p>Name: <%= pet.name %></p>
+      <p>Name: <%= link_to "#{pet.name}", "/pets/#{pet.id}" %></p>
       <p>Age: <%= pet.age %></p>
       <p>Sex: <%= pet.sex %></p>
       <p>Belongs To: <%= link_to "#{pet.shelter.name}", "/shelters/#{pet.shelter.id}" %></p>
