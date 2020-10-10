@@ -6,4 +6,5 @@
 <p><%= @pet.age %></p>
 <p><%= @pet.sex %></p>
 <p><%= @pet.status %></p>
-<%= link_to "Update Pet", "/pets/#{@pet.id}/edit" %>
+<%= link_to "Update Pet", "/pets/#{@pet.id}/edit" %><br>
+<%= link_to "Delete Pet", "/pets/#{@pet.id}/delete", method: :delete %>
