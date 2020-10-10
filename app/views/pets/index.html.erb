@@ -6,7 +6,7 @@
       <p>Name: <%= pet.name %></p>
       <p>Age: <%= pet.age %></p>
       <p>Sex: <%= pet.sex %></p>
-      <p>Belongs To: <%= pet.shelter.name %></p>
+      <p>Belongs To: <%= link_to "#{pet.shelter.name}", "/shelters/#{pet.shelter.id}" %></p>
       <%= link_to "Update Pet", "/pets/#{pet.id}/edit" %><br>
       <%= link_to "Delete Pet", "/pets/#{pet.id}/delete", method: :delete %><br><br>
     </section>
