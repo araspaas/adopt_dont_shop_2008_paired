@@ -14,6 +14,7 @@ RSpec.describe "Shelter specific index page" do
     expect(page).to have_content(pet1.age)
     expect(page).to have_content(pet1.sex)
     expect(page).to have_content(pet1.status)
+    expect(page).to have_content("Pets in this shelter: #{shelter_1.count_pets}")
 
     visit "/shelters/#{shelter_2.id}/pets"
 
@@ -21,6 +22,7 @@ RSpec.describe "Shelter specific index page" do
     expect(page).to have_content(pet2.age)
     expect(page).to have_content(pet2.sex)
     expect(page).to have_content(pet2.status)
+    expect(page).to have_content(shelter_2.count_pets)
   end
   it "I can see a link to edit each pet and use it" do
     shelter_1 = create(:shelter)
