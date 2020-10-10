@@ -1,10 +1,10 @@
 <h1>Welcome To <%= @pet.name %>'s Page</h1>
 
 <img class="pet-image" src=<%= @pet.image %>>
-<p><%= @pet.name %></p>
-<p><%= @pet.description %></p>
-<p><%= @pet.age %></p>
-<p><%= @pet.sex %></p>
-<p><%= @pet.status %></p>
+<p>Name: <%= @pet.name %></p>
+<p>Description: <%= @pet.description %></p>
+<p>Age: <%= @pet.age %></p>
+<p>Sex: <%= @pet.sex %></p>
+<p>Adoption status: <%= @pet.status %></p>
 <%= link_to "Update Pet", "/pets/#{@pet.id}/edit" %><br>
 <%= link_to "Delete Pet", "/pets/#{@pet.id}/delete", method: :delete %>
