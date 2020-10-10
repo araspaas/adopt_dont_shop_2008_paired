@@ -64,5 +64,19 @@ describe "As a visitor" do
       end
       expect(current_path).to eq("/shelters/#{shelter_1.id}")
     end
+    it "I can see a link to shelters index and pets index and click on them" do
+      shelter_1 = create(:shelter)
+
+      pet1 = shelter_1.pets.create!(name: "Bella", image: "https://img.webmd.com/dtmcms/live/webmd/consumer_assets/site_images/article_thumbnails/other/dog_cool_summer_slideshow/1800x1200_dog_cool_summer_other.jpg", age: "5", sex: "Female", description: "Bork", status: 0)
+      visit "/shelters"
+
+      click_link "Shelters Index"
+      expect(current_path).to eq("/shelters")
+
+      visit "/shelters"
+
+      click_link "Pets Index"
+      expect(current_path).to eq("/pets")
+    end
   end
 end

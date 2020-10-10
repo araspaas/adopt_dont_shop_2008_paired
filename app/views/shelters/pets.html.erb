@@ -1,3 +1,4 @@
+<main>
 <h1>Welcome to <%= link_to "#{@shelter.name}", "/shelters/#{@shelter.id}"  %> Pets Page</h1>
 
 <% @shelter.pets.each do |pet| %>
@@ -12,3 +13,4 @@
   </section>
 <% end %>
 <%= link_to 'Create Pet', "/shelters/#{@shelter.id}/pets/new" %>
+</main>

@@ -1,3 +1,4 @@
+<main>
 <h1>Update <%= @pet.name %>'s Info</h1>
 
 <%= form_tag "/pets/#{@pet.id}", method: :patch do %>
@@ -13,3 +14,4 @@
   <%= text_field_tag :sex, value="#{@pet.sex}"%><br>
   <%= submit_tag 'Update Pet' %>
 <% end %>
+</main>

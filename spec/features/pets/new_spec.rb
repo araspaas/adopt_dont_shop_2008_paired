@@ -31,5 +31,18 @@ describe "as a visitor" do
       expect(page).to have_content("you decide")
       expect(page).to have_content("adoptable")
     end
+    it "I can see a link to shelters index and pets index and click on them" do
+      shelter_1 = create(:shelter)
+
+      visit "/shelters/#{shelter_1.id}/pets/new"
+
+      click_link "Shelters Index"
+      expect(current_path).to eq("/shelters")
+
+      visit "/shelters/#{shelter_1.id}/pets/new"
+
+      click_link "Pets Index"
+      expect(current_path).to eq("/pets")
+    end
   end
 end
