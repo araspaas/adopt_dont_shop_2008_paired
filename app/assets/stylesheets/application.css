@@ -13,3 +13,10 @@
  *= require_tree .
  *= require_self
  */
+.pet-image {
+    width: 300px;
+ }
+
+img {
+   width: 300px;
+ }

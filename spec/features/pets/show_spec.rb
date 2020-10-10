@@ -9,7 +9,6 @@ describe "as a visitor" do
 
       visit "/pets/#{pet1.id}"
 
-      expect(page).to have_content(pet1.image)
       expect(page).to have_content(pet1.name)
       expect(page).to have_content(pet1.description)
       expect(page).to have_content(pet1.age)
