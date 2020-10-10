@@ -46,5 +46,23 @@ describe "As a visitor" do
       expect(current_path).to eq("/shelters/#{shelter_2.id}")
       expect(page).to have_content("Van's catto Shelter")
     end
+    it "I can click on the shelters name and take me to its show page" do
+      shelter_1 = create(:shelter)
+      shelter_2 = create(:shelter)
+
+      visit "/shelters"
+
+      within ".shelter-#{shelter_2.id}" do
+        click_link "#{shelter_2.name}"
+      end
+      expect(current_path).to eq("/shelters/#{shelter_2.id}")
+
+      visit "/shelters"
+
+      within ".shelter-#{shelter_1.id}" do
+        click_link "#{shelter_1.name}"
+      end
+      expect(current_path).to eq("/shelters/#{shelter_1.id}")
+    end
   end
 end
