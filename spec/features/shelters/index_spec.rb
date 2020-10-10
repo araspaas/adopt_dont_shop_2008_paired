@@ -15,5 +15,36 @@ describe "As a visitor" do
       expect(page).to have_content("#{shelter_3.name}")
       expect(page).to have_content("#{shelter_4.name}")
     end
+
+    it "I can see a link to a shelters edit form and use it" do
+      shelter_1 = create(:shelter)
+      shelter_2 = create(:shelter)
+
+      visit "/shelters"
+
+      within ".shelter-#{shelter_1.id}" do
+        click_link "Update Shelter"
+      end
+      expect(page).to have_field('Name', with: "#{shelter_1.name}")
+
+      fill_in 'Name', with: "Van's Doggo Shelter"
+
+      click_on "Update Shelter"
+      expect(current_path).to eq("/shelters/#{shelter_1.id}")
+      expect(page).to have_content("Van's Doggo Shelter")
+
+      visit "/shelters"
+
+      within ".shelter-#{shelter_2.id}" do
+        click_link "Update Shelter"
+      end
+      expect(page).to have_field('Name', with: "#{shelter_2.name}")
+
+      fill_in 'Name', with: "Van's catto Shelter"
+
+      click_on "Update Shelter"
+      expect(current_path).to eq("/shelters/#{shelter_2.id}")
+      expect(page).to have_content("Van's catto Shelter")
+    end
   end
 end
