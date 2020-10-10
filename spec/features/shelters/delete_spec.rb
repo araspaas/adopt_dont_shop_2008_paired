@@ -15,5 +15,17 @@ describe "As a visitor" do
       expect(current_path).to eq("/shelters")
       expect(page).to_not have_content(shelter_1.name)
     end
+    it "I can delete a shelter from the index page" do
+      shelter_1 = create(:shelter)
+      shelter_2 = create(:shelter)
+
+      visit "/shelters"
+
+      within ".shelter-#{shelter_2.id}" do
+        click_link "Delete Shelter"
+      end
+
+      expect(page).to_not have_content(shelter_2.name)
+    end
   end
 end
