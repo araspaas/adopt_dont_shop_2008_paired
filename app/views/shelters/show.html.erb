@@ -1,3 +1,5 @@
+<main>
+
 <h1>Welcome to <%= @shelter.name %> Home Page</h1>
 
 <p>Shelter Address: <%= @shelter.address%></p>
@@ -6,3 +8,4 @@
 <p>Shelter Zip: <%= @shelter.zip %></p><br>
 <%= link_to "Update Shelter", "/shelters/#{@shelter.id}/edit" %><br>
 <%= link_to "Delete Shelter", "/shelters/#{@shelter.id}", method: :delete %><br>
+</main>

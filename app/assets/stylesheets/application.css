@@ -13,6 +13,23 @@
  *= require_tree .
  *= require_self
  */
+ header {
+     display: block;
+     height: 60px;
+     text-shadow: #000 0 0 .2em;
+     background: url("https://campfire.org/wp-content/uploads/2016/08/e6bffcd2e194a6b1b8317b8f5126f7a409e150d6_Home-slider-2_v2.jpg");
+     background-repeat: repeat-x;
+     background-size: contain;
+ }
+
+
+main {
+  display: block;
+  height: 100%;
+  font: 1rem 'Fira Sans', sans-serif;
+}
+
+
 .pet-image {
     width: 300px;
  }

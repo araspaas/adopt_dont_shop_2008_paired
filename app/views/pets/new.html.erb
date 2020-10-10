@@ -1,3 +1,4 @@
+<main>
 <h1>Create a new pet</h1>
 
 <%= form_tag "/shelters/#{@shelter.id}/pets" do %>
@@ -14,3 +15,4 @@
   <%= hidden_field_tag :status, "adoptable" %>
   <%= submit_tag 'Create Pet' %>
 <% end %>
+</main>
