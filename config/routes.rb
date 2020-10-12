@@ -21,6 +21,6 @@ Rails.application.routes.draw do
   delete 'pets/:id/delete', to: 'pets#destroy'
 
   # USER routes
-  resources :users, only: [:show]
+  resources :users, only: [:show, :new, :create]
   # get '/users/:id', to: 'users#show'
 end
