@@ -11,10 +11,11 @@
   <p>Review Rating: <%= review.rating %></p>
   <p>Review Content: <%= review.content %></p>
   <p>User: <%= review.user.name %></p>
-  <%# <%= image_tag review.image, size:'480x360' %> %>
+  <%# <%= image_tag review.image, size:'480x360' %> 
   <img class="review-image" src=<%= review.image %>>
 <% end %>
 <%= link_to "Update Shelter", "/shelters/#{@shelter.id}/edit" %><br>
 <%= link_to "Delete Shelter", "/shelters/#{@shelter.id}", method: :delete %><br>
-<%= link_to "Pets", "/shelters/#{@shelter.id}/pets" %>
+<%= link_to "Pets", "/shelters/#{@shelter.id}/pets" %><br>
+<%= link_to "Add Review", "/shelters/#{@shelter.id}/reviews/new" %><br>
 </main>
