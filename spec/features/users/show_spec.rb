@@ -29,7 +29,7 @@ describe "As a visitor" do
       review1 = user.reviews.create!({title: "Great Shelter!", rating: "4", content: "I had a great experience here!", image: "https://cdn.pixabay.com/photo/2017/11/15/13/52/bulldog-2952049_960_720.jpg", shelter_id: shelter1.id})
       review2 = user.reviews.create!({title: "Awful Shelter!", rating: "2", content: "I had a horrible experience here!", shelter_id: shelter2.id})
       visit("/users/#{user.id}")
-      save_and_open_page
+
       expect(page).to have_content(review1.title)
       expect(page).to have_content(review1.rating)
       expect(page).to have_content(review1.content)
