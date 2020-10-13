@@ -23,4 +23,9 @@ Rails.application.routes.draw do
   # USER routes
   resources :users, only: [:show, :new, :create]
   # get '/users/:id', to: 'users#show'
+
+  # REVIEWS ROUTES
+  # resources :reviews, only: [:new, :create]
+  get "/shelters/:shelter_id/reviews/new", to: 'reviews#new'
+  post 'shelters/:shelter_id', to: 'reviews#create'
 end
