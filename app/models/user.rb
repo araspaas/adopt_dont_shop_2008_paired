@@ -4,4 +4,5 @@ class User < ApplicationRecord
                         :city,
                         :state,
                         :zip
+  has_many :reviews
 end
