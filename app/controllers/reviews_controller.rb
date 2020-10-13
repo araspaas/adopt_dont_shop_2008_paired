@@ -6,9 +6,8 @@ class ReviewsController < ApplicationController
 
   def create
     @shelter = Shelter.find(params[:shelter_id])
-    user_name = User.find_by(name: params[:name])
-    full_params = review_params.merge({ user_id: user_name.id })
-    Review.create!(full_params)
+    user = User.find_by(name: params[:name])
+    user.reviews.create!(review_params)
     redirect_to "/shelters/#{@shelter.id}"
   end
 
