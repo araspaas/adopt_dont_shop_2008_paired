@@ -1,12 +1,11 @@
 class ReviewsController < ApplicationController
+  before_action :shelter, only: [:new, :create]
 
   def new
-    shelter
   end
 
   def create
     @user = User.find_by(name: params[:name])
-    shelter
     if @user
       save_review(@user)
     else
