@@ -41,5 +41,20 @@ describe "As a visitor" do
       expect(page).to have_content(review2.content)
       expect(page).to have_content(review2.user.name)
     end
+    it "I see the average rating of all of their reviews" do
+      shelter1 = create(:shelter)
+      shelter2 = create(:shelter)
+      shelter3 = create(:shelter)
+      shelter4 = create(:shelter)
+      user = User.create!(name: "John Doe", address: "123 candy cane lane", city: "Denver", state: "Colorado", zip: "80128")
+      review1 = user.reviews.create!({title: "Great Shelter!", rating: "4", content: "I had a great experience here!", image: "https://cdn.pixabay.com/photo/2017/11/15/13/52/bulldog-2952049_960_720.jpg", shelter_id: shelter1.id})
+      review2 = user.reviews.create!({title: "Awful Shelter!", rating: "2", content: "I had a horrible experience here!", shelter_id: shelter2.id})
+      review3 = user.reviews.create!({title: "Blah Shelter!", rating: "3", content: "I had a horrible experience here!", shelter_id: shelter3.id})
+      review4 = user.reviews.create!({title: "Meh Shelter!", rating: "1", content: "I had a horrible experience here!", shelter_id: shelter4.id})
+
+      visit("/users/#{user.id}")
+
+      expect(page).to have_content("Average Review Rating: #{user.average_review_rating.to_f.round(1)}")
+    end
   end
 end

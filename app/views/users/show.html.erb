@@ -6,6 +6,7 @@
 <p>User Zip: <%= @user.zip %></p>
 
 <%= content_tag :h2, "User Reviews:" %>
+<%= content_tag :h4, "Average Review Rating: #{@user.average_review_rating.to_f.round(1)}" %>
 <% @user.reviews.each do |review| %>
   <p>Title: <%= review.title %></p>
   <p>Rating: <%= review.rating %></p>
