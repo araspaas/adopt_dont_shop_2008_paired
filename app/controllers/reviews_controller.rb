@@ -1,5 +1,6 @@
 class ReviewsController < ApplicationController
   before_action :shelter, only: [:new, :create]
+  before_action :review, only: [:edit, :update]
 
   def new
   end
@@ -15,18 +16,20 @@ class ReviewsController < ApplicationController
   end
 
   def edit
-    @review = Review.find(params[:id])
   end
 
   def update
-    review = Review.find(params[:id])
-    review.update(review_params)
-
-    redirect_to("/shelters/#{review_params[:shelter_id]}")
+    @user = User.find_by(name: params[:user])
+    if @user
+      update_review(@user)
+    else
+      flash.now[:errors] = "User Must Exist"
+      render :edit
+    end
   end
 
   def destroy
-    Review.find(params[:id]).destroy
+    review.destroy
     redirect_to "/shelters/#{params[:shelter_id]}"
   end
 
@@ -39,6 +42,10 @@ class ReviewsController < ApplicationController
     @shelter ||= Shelter.find(params[:shelter_id])
   end
 
+  def review
+    @review ||= Review.find(params[:id])
+  end
+
   def save_review(user)
     @review = user.reviews.new(review_params)
     if @review.save
@@ -46,6 +53,17 @@ class ReviewsController < ApplicationController
     else
       flash.now[:errors] = "#{@review.errors.full_messages.to_sentence}"
       render :new
+    end
+  end
+
+  def update_review(user)
+    @review = Review.find(params[:id])
+    @review.update(review_params)
+    if @review.save
+      redirect_to("/shelters/#{review_params[:shelter_id]}")
+    else
+      flash.now[:errors] = "#{@review.errors.full_messages.to_sentence}"
+      render :edit
     end
   end
 end
