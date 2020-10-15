@@ -6,4 +6,8 @@ class User < ApplicationRecord
                         :zip
   has_many :reviews
   has_many :shelters, through: :reviews
+
+  def average_review_rating
+    reviews.average(:rating)
+  end
 end
