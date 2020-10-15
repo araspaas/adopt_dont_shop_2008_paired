@@ -1,14 +1,18 @@
 class ReviewsController < ApplicationController
 
   def new
-    @shelter = Shelter.find(params[:shelter_id])
+    shelter
   end
 
   def create
-    @shelter = Shelter.find(params[:shelter_id])
-    user = User.find_by(name: params[:name])
-    user.reviews.create!(review_params)
-    redirect_to "/shelters/#{@shelter.id}"
+    @user = User.find_by(name: params[:name])
+    shelter
+    if @user
+      save_review(@user)
+    else
+      flash.now[:errors] = "User Must Exist"
+      render :new
+    end
   end
 
   def edit
@@ -29,6 +33,20 @@ class ReviewsController < ApplicationController
 
   private
   def review_params
-    params.permit(:title, :rating, :content, :shelter_id)
+    params.permit(:title, :rating, :content, :shelter_id, :user_id)
+  end
+
+  def shelter
+    @shelter ||= Shelter.find(params[:shelter_id])
+  end
+
+  def save_review(user)
+    @review = user.reviews.new(review_params)
+    if @review.save
+      redirect_to "/shelters/#{params[:shelter_id]}"
+    else
+      flash.now[:errors] = "#{@review.errors.full_messages.to_sentence}"
+      render :new
+    end
   end
 end
