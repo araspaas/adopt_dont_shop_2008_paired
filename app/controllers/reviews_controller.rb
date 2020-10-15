@@ -1,5 +1,5 @@
 class ReviewsController < ApplicationController
-  before_action :shelter, only: [:new, :create]
+  before_action :shelter, only: [:new, :create, :update]
 
   def new
   end
@@ -19,10 +19,14 @@ class ReviewsController < ApplicationController
   end
 
   def update
-    review = Review.find(params[:id])
-    review.update(review_params)
-
-    redirect_to("/shelters/#{review_params[:shelter_id]}")
+    @review = Review.find(params[:id])
+    @review.update(review_params)
+    if @review.save
+      redirect_to("/shelters/#{review_params[:shelter_id]}")
+    else
+      flash.now[:errors] = "#{@review.errors.full_messages.to_sentence}"
+      render :edit
+    end
   end
 
   def destroy
