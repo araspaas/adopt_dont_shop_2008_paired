@@ -11,4 +11,20 @@ describe User, type: :model do
   describe "relationships" do
     it { should have_many :reviews }
   end
+  describe "instance methods" do
+    it ".average_review_rating" do
+      shelter1 = create(:shelter)
+      shelter2 = create(:shelter)
+      shelter3 = create(:shelter)
+      shelter4 = create(:shelter)
+      user1 = User.create!(name: "John Doe", address: "123 candy cane lane", city: "Denver", state: "Colorado", zip: "80128")
+      user2 = User.create!(name: "Tim Doe", address: "123 candy cane lane", city: "Denver", state: "Colorado", zip: "80128")
+      review1 = user1.reviews.create!({title: "Great Shelter!", rating: "4", content: "I had a great experience here!", image: "https://cdn.pixabay.com/photo/2017/11/15/13/52/bulldog-2952049_960_720.jpg", shelter_id: shelter1.id})
+      review2 = user1.reviews.create!({title: "Awful Shelter!", rating: "2", content: "I had a horrible experience here!", shelter_id: shelter2.id})
+      review3 = user1.reviews.create!({title: "Blah Shelter!", rating: "3", content: "I had a horrible experience here!", shelter_id: shelter3.id})
+      review4 = user1.reviews.create!({title: "Meh Shelter!", rating: "1", content: "I had a horrible experience here!", shelter_id: shelter4.id})
+
+      expect(user1.average_review_rating).to eq(2.5)
+    end
+  end
 end
