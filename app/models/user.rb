@@ -5,4 +5,5 @@ class User < ApplicationRecord
                         :state,
                         :zip
   has_many :reviews
+  has_many :shelters, through: :reviews
 end
