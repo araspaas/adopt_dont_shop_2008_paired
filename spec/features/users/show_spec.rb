@@ -84,11 +84,13 @@ describe "As a visitor" do
 
       within "#highlighted" do
         expect(page).to_not have_content("Best Review: ")
+        expect(page).to_not have_content("Worst Review: ")
       end
       visit("/users/#{user3.id}")
 
       within "#highlighted" do
         expect(page).to_not have_content("Best Review: ")
+        expect(page).to_not have_content("Worst Review: ")
       end
     end
   end
