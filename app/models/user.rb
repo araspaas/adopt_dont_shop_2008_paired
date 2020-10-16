@@ -6,6 +6,7 @@ class User < ApplicationRecord
                         :zip
   has_many :reviews
   has_many :shelters, through: :reviews
+  has_many :applications
 
   def average_review_rating
     avg = reviews.average(:rating)
