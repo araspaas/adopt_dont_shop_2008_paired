@@ -7,6 +7,17 @@
 
 <%= content_tag :h2, "User Reviews:" %>
 <%= content_tag :h4, "Average Review Rating: #{@user.average_review_rating.to_f.round(1)}" %>
+<section id="highlighted">
+  <% if @user.best_review && @user.reviews.count > 1%>
+    <p>Best Review: <%= @user.best_review.title %></p>
+    <p><%= @user.best_review.rating %></p>
+    <p><%= @user.best_review.content %></p>
+    <br>
+    <p>Worst Review: <%= @user.worst_review.title %></p>
+    <p><%= @user.worst_review.rating %></p>
+    <p><%= @user.worst_review.content %></p>
+  <% end %>
+</section>
 <% @user.reviews.each do |review| %>
   <p>Title: <%= review.title %></p>
   <p>Rating: <%= review.rating %></p>

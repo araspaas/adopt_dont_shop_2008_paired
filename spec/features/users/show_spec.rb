@@ -56,5 +56,42 @@ describe "As a visitor" do
 
       expect(page).to have_content("Average Review Rating: #{user.average_review_rating.to_f.round(1)}")
     end
+    it "I see the users best and worst review" do
+      shelter1 = create(:shelter)
+      shelter2 = create(:shelter)
+      shelter3 = create(:shelter)
+      shelter4 = create(:shelter)
+      user1 = User.create!(name: "John Doe", address: "123 candy cane lane", city: "Denver", state: "Colorado", zip: "80128")
+      user2 = User.create!(name: "Tim Tyrell", address: "123 candy cane lane", city: "Denver", state: "Colorado", zip: "80128")
+      user3 = User.create!(name: "Brian Zanti", address: "123 candy cane lane", city: "Denver", state: "Colorado", zip: "80128")
+      review1 = user1.reviews.create!({title: "Great Shelter!", rating: "4", content: "I had a great experience here!", image: "https://cdn.pixabay.com/photo/2017/11/15/13/52/bulldog-2952049_960_720.jpg", shelter_id: shelter1.id})
+      review2 = user1.reviews.create!({title: "Awful Shelter!", rating: "2", content: "I had a horrible experience here!", shelter_id: shelter2.id})
+      review3 = user1.reviews.create!({title: "Blah Shelter!", rating: "3", content: "I had a horrible experience here!", shelter_id: shelter3.id})
+      review4 = user1.reviews.create!({title: "Meh Shelter!", rating: "1", content: "I had a horrible experience here!", shelter_id: shelter4.id})
+      review5 = user2.reviews.create!({title: "Blarg Shelter!", rating: "1", content: "I had a horrible experience here!", shelter_id: shelter4.id})
+
+      visit("/users/#{user1.id}")
+
+      within "#highlighted" do
+        expect(page).to have_content("#{user1.best_review.title}")
+        expect(page).to have_content("#{user1.best_review.rating}")
+        expect(page).to have_content("#{user1.best_review.content}")
+        expect(page).to have_content("#{user1.worst_review.title}")
+        expect(page).to have_content("#{user1.worst_review.rating}")
+        expect(page).to have_content("#{user1.worst_review.content}")
+      end
+      visit("/users/#{user2.id}")
+
+      within "#highlighted" do
+        expect(page).to_not have_content("Best Review: ")
+        expect(page).to_not have_content("Worst Review: ")
+      end
+      visit("/users/#{user3.id}")
+
+      within "#highlighted" do
+        expect(page).to_not have_content("Best Review: ")
+        expect(page).to_not have_content("Worst Review: ")
+      end
+    end
   end
 end
