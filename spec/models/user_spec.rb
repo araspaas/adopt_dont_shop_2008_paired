@@ -10,6 +10,7 @@ describe User, type: :model do
   end
   describe "relationships" do
     it { should have_many :reviews }
+    it { should have_many :applications }
   end
   describe "instance methods" do
     it ".average_review_rating" do
