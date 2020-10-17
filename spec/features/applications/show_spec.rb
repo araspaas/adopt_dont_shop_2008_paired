@@ -13,7 +13,7 @@ describe "As a visitor" do
       application.application_pets.create([{pet_id: pet1.id}, {pet_id: pet2.id}, {pet_id: pet3.id}, {pet_id: pet4.id}])
 
       visit "/applications/#{application.id}"
-      save_and_open_page
+
       expect(page).to have_content(application.user_name)
       expect(page).to have_content(application.full_address)
       expect(page).to have_content(application.description)
