@@ -1,0 +1,9 @@
+<%= content_tag :h1, "Application" %>
+
+<%= content_tag :p,"Applicant: #{@application.user_name}" %>
+<%= content_tag :p, "Address: #{@application.full_address}" %>
+<%= content_tag :p, "Description: #{@application.description}" %>
+<%= content_tag :p, "Status: #{@application.status}" %>
+<% @application.pet_names.each do |name| %>
+  <%= content_tag :p, name %>
+<% end %>
