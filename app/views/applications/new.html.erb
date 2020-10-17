@@ -1,0 +1,7 @@
+<h1>Start an Application</h1>
+
+<%= form_tag "/applications" do %>
+  <%= label_tag :user_name %>
+  <%= text_field_tag :user_name %>
+  <%= submit_tag "Submit" %>
+<% end %>
