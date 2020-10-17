@@ -7,14 +7,16 @@
 <%= content_tag :p, 'Pets:' %>
 <ul>
   <% @application.pet_names.each do |pet| %>
-    <li><%= link_to pet.name, "/pets/#{pet.id}" %></li>
+    <li id="app-pets-<%= pet.name %>"><%= link_to pet.name, "/pets/#{pet.id}" %></li>
   <% end %>
 </ul>
+<% if @application.status == "in_progress" %>
 <%= form_tag "/applications/#{@application.id}", method: :get do %>
   <%= hidden_field_tag :application_id, @application.id %>
   <%= label_tag :search, "Add a Pet to this Application:" %>
   <%= search_field_tag :search, params[:search] %>
   <%= submit_tag "Search Pets" %>
+<% end %>
 <% end %>
 
 <% if @search_results %>
@@ -22,6 +24,7 @@
     <% @search_results.each do |pet| %>
       <li id='result-<%= pet.id %>'>
         <%= content_tag :p, "Name: #{pet.name}" %>
+        <%= button_to "Adopt This Pet", "/applications/#{@application.id}", method: :patch, params: {pet: pet.id} %>
       </li>
     <% end %>
   </ul>

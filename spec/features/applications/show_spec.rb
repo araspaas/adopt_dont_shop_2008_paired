@@ -60,6 +60,15 @@ describe "As a visitor" do
         expect(current_path).to eq("/applications/#{application.id}")
 
         expect(page).to have_css("#result-#{pet.id}")
+        within "#result-#{pet.id}" do
+          expect(page).to have_content(pet.name)
+          click_button("Adopt This Pet")
+        end
+        expect(current_path).to eq("/applications/#{application.id}")
+
+        within "#app-pets-#{pet.name}" do
+          expect(page).to have_content(pet.name)
+        end
       end
     end
   end
