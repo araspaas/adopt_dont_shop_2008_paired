@@ -2,7 +2,6 @@
 
 <%= content_tag :p,"Applicant: #{@application.user_name}" %>
 <%= content_tag :p, "Address: #{@application.full_address}" %>
-<%= content_tag :p, "Description: #{@application.description}" %>
 <%= content_tag :p, "Status: #{@application.status}" %>
 <%= content_tag :p, 'Pets:' %>
 <ul>
@@ -10,6 +9,9 @@
     <li id="app-pets-<%= pet.name %>"><%= link_to pet.name, "/pets/#{pet.id}" %></li>
   <% end %>
 </ul>
+<% if @application.status != "in_progress" %>
+<%= content_tag :p, "Description: #{@application.description}" %>
+<% end %>
 <% if @application.status == "in_progress" %>
 <%= form_tag "/applications/#{@application.id}", method: :get do %>
   <%= hidden_field_tag :application_id, @application.id %>
@@ -28,4 +30,12 @@
       </li>
     <% end %>
   </ul>
+<% end %>
+
+<% if @application.pet_names.any? && @application.status == "in_progress" %>
+  <%= form_tag "/applications/#{@application.id}", method: :patch do %>
+    <%= label_tag :description, "Why Are You A Good Owner?" %>
+    <%= text_field_tag :description %>
+    <%= submit_tag "Submit Application" %>
+  <% end %>
 <% end %>
