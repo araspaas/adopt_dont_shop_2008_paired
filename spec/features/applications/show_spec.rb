@@ -62,7 +62,6 @@ describe "As a visitor" do
 
         expect(current_path).to eq("/applications/#{application.id}")
 
-        expect(page).to have_css("#result-#{pet.id}")
         within "#result-#{pet.id}" do
           expect(page).to have_content(pet.name)
           click_button("Adopt This Pet")
@@ -86,6 +85,32 @@ describe "As a visitor" do
         expect(page).to_not have_field("Add a Pet to this Application:")
         expect(page).to_not have_button("Adopt This Pet")
         expect(page).to_not have_field("Why Are You A Good Owner?")
+      end
+      it "Shows flash message when I dont fill in good owner field" do
+        user = User.create!(name: "Tim Tyrell", address: "321 you hate to see it dr", city: "Denver", state: "Colorado", zip: "80000")
+        shelter = Shelter.create(name: "Van's pet shop", address: "3724 tennessee dr", city: "Rockford", state: "Illinois", zip: "61108")
+        application = user.applications.create(description: "I'm awesome, give me animals.")
+        pet = shelter.pets.create(image: "https://img.webmd.com/dtmcms/live/webmd/consumer_assets/site_images/article_thumbnails/other/dog_cool_summer_slideshow/1800x1200_dog_cool_summer_other.jpg", name: "Bella", age: "5", sex: "female", description: "Fun Loving Dog", status: 0)
+
+        visit "/applications/#{application.id}"
+
+        fill_in "Add a Pet to this Application:", with: pet.name
+
+        click_button "Search Pets"
+
+        expect(current_path).to eq("/applications/#{application.id}")
+
+        within "#result-#{pet.id}" do
+          expect(page).to have_content(pet.name)
+          click_button("Adopt This Pet")
+        end
+        expect(current_path).to eq("/applications/#{application.id}")
+
+        fill_in "Why Are You A Good Owner?", with: ""
+
+        click_button "Submit Application"
+
+        expect(page).to have_content("Must enter a Description")
       end
     end
   end
