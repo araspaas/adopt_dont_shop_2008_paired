@@ -9,4 +9,8 @@ class Pet < ApplicationRecord
   validates_presence_of :description
   validates_presence_of :status
   enum status: [:adoptable, :pending, :adopted]
+
+  def self.search(search)
+    Pet.where(name: search)
+  end
 end

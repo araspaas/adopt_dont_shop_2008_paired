@@ -10,3 +10,19 @@
     <li><%= link_to pet.name, "/pets/#{pet.id}" %></li>
   <% end %>
 </ul>
+<%= form_tag "/applications/#{@application.id}", method: :get do %>
+  <%= hidden_field_tag :application_id, @application.id %>
+  <%= label_tag :search, "Add a Pet to this Application:" %>
+  <%= search_field_tag :search, params[:search] %>
+  <%= submit_tag "Search Pets" %>
+<% end %>
+
+<% if @search_results %>
+  <ul>
+    <% @search_results.each do |pet| %>
+      <li id='result-<%= pet.id %>'>
+        <%= content_tag :p, "Name: #{pet.name}" %>
+      </li>
+    <% end %>
+  </ul>
+<% end %>
