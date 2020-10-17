@@ -21,15 +21,19 @@ class ApplicationsController < ApplicationController
     if params[:pet]
       pet = Pet.find(params[:pet])
       @application.pets << pet
+      redirect_to "/applications/#{@application.id}"
+      return
     end
-    if params[:description]
+    if params[:description].nil? || params[:description] == ""
+      flash.now[:errors] = "Must enter a Description"
+      render :show
+    else
       @application.update(status: 1, description: params[:description])
+      redirect_to "/applications/#{@application.id}"
     end
-    redirect_to "/applications/#{@application.id}"
   end
 
   private
-
   def user
     @user ||= User.find_by(name: params[:user_name])
   end
@@ -38,9 +42,6 @@ class ApplicationsController < ApplicationController
     @application = user.applications.new
     if @application.save
       redirect_to "/applications/#{@application.id}"
-    else
-      flash.now[:errors] = "#{@application.errors.full_messages.to_sentence}"
-      render :new
     end
   end
 end
