@@ -42,5 +42,25 @@ describe "As a visitor" do
 
       expect(current_path).to eq("/pets/#{pet4.id}")
     end
+    describe "And that application has not been submitted" do
+      it "then I see a section on the page to 'Add a Pet to this Application'" do
+        user = User.create!(name: "Tim Tyrell", address: "321 you hate to see it dr", city: "Denver", state: "Colorado", zip: "80000")
+        shelter = Shelter.create(name: "Van's pet shop", address: "3724 tennessee dr", city: "Rockford", state: "Illinois", zip: "61108")
+        application = user.applications.create(description: "I'm awesome, give me animals.")
+        pet = shelter.pets.create(image: "https://img.webmd.com/dtmcms/live/webmd/consumer_assets/site_images/article_thumbnails/other/dog_cool_summer_slideshow/1800x1200_dog_cool_summer_other.jpg", name: "Bella", age: "5", sex: "female", description: "Fun Loving Dog", status: 0)
+
+        visit "/applications/#{application.id}"
+
+        expect(page).to have_field("Add a Pet to this Application:")
+
+        fill_in "Add a Pet to this Application:", with: pet.name
+
+        click_button "Search Pets"
+
+        expect(current_path).to eq("/applications/#{application.id}")
+
+        expect(page).to have_css("#result-#{pet.id}")
+      end
+    end
   end
 end
