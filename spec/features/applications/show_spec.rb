@@ -52,6 +52,9 @@ describe "As a visitor" do
         visit "/applications/#{application.id}"
 
         expect(page).to have_field("Add a Pet to this Application:")
+        expect(page).to_not have_button("Submit Application")
+        expect(page).to_not have_button("Adopt This Pet")
+        expect(page).to_not have_field("Why Are You A Good Owner?")
 
         fill_in "Add a Pet to this Application:", with: pet.name
 
