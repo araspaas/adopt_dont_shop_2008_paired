@@ -29,7 +29,7 @@ describe Application, type: :model do
       application = user.applications.create(description: "I'm awesome, give me animals.")
       application.application_pets.create([{pet_id: pet1.id}, {pet_id: pet2.id}, {pet_id: pet3.id}, {pet_id: pet4.id}])
 
-      expect(application.pet_names).to eq([pet1.name, pet2.name, pet3.name, pet4.name])
+      expect(application.pet_names).to eq([pet1, pet2, pet3, pet4])
     end
   end
 end
