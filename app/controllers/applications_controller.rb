@@ -22,6 +22,9 @@ class ApplicationsController < ApplicationController
       pet = Pet.find(params[:pet])
       @application.pets << pet
     end
+    if params[:description]
+      @application.update(status: 1, description: params[:description])
+    end
     redirect_to "/applications/#{@application.id}"
   end
 
