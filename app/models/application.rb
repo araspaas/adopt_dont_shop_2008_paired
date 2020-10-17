@@ -13,6 +13,6 @@ class Application < ApplicationRecord
   end
 
   def pet_names
-    pets.pluck(:name)
+    pets.select(:id, :name)
   end
 end
