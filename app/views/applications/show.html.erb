@@ -4,6 +4,9 @@
 <%= content_tag :p, "Address: #{@application.full_address}" %>
 <%= content_tag :p, "Description: #{@application.description}" %>
 <%= content_tag :p, "Status: #{@application.status}" %>
-<% @application.pet_names.each do |name| %>
-  <%= content_tag :p, name %>
-<% end %>
+<%= content_tag :p, 'Pets:' %>
+<ul>
+  <% @application.pet_names.each do |pet| %>
+    <li><%= link_to pet.name, "/pets/#{pet.id}" %></li>
+  <% end %>
+</ul>
