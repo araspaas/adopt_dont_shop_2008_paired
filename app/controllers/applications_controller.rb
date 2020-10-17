@@ -16,6 +16,15 @@ class ApplicationsController < ApplicationController
     end
   end
 
+  def update
+    @application = Application.find(params[:id])
+    if params[:pet]
+      pet = Pet.find(params[:pet])
+      @application.pets << pet
+    end
+    redirect_to "/applications/#{@application.id}"
+  end
+
   private
 
   def user
