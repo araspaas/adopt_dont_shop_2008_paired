@@ -56,7 +56,7 @@ describe "As a visitor" do
         expect(page).to_not have_button("Adopt This Pet")
         expect(page).to_not have_field("Why Are You A Good Owner?")
 
-        fill_in "Add a Pet to this Application:", with: pet.name
+        fill_in "Add a Pet to this Application:", with: "b"
 
         click_button "Search Pets"
 

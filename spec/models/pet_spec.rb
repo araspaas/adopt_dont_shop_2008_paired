@@ -24,7 +24,7 @@ describe Pet, type: :model do
       pet5 = shelter.pets.create(image: "https://i.dailymail.co.uk/1s/2020/03/20/13/26207684-0-image-a-4_1584711978894.jpg", name: "Frank", age: "7", sex: "female", description: "Noodle", status: 0)
 
       expect(Pet.search(pet1.name)).to eq([pet1])
-      expect(Pet.search(pet4.name)).to eq([pet4, pet5])
+      expect(Pet.search("f")).to eq([pet4, pet5])
     end
   end
 end

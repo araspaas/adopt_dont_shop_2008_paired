@@ -11,6 +11,6 @@ class Pet < ApplicationRecord
   enum status: [:adoptable, :pending, :adopted]
 
   def self.search(search)
-    Pet.where(name: search)
+    Pet.where('lower(name) like ?', "%#{search.downcase}%")
   end
 end
