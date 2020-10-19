@@ -12,7 +12,7 @@ describe "As a visitor" do
       @application.application_pets.create([{pet_id: @pet1.id}, {pet_id: @pet2.id}])
       visit "/admin/applications/#{@application.id}"
     end
-    it "I see a button for every pet to approve the application for that pet" do
+    it "I see a button for every pet to approve that pet for the application" do
       within("#pet-application-status-#{@pet1.id}") do
         expect(page).to have_button("Approve Pet")
       end
@@ -30,6 +30,26 @@ describe "As a visitor" do
         click_button "Approve Pet"
         expect(page).to have_content("accepted")
         expect(page).to_not have_button("Approve Pet")
+      end
+    end
+    it "I see a button for every pet to reject that pet for the application" do
+      within("#pet-application-status-#{@pet1.id}") do
+        expect(page).to have_button("Reject Pet")
+      end
+      within("#pet-application-status-#{@pet2.id}") do
+        expect(page).to have_button("Reject Pet")
+      end
+    end
+    it "When I click that button, I'm taken back to the admin application show page and next to the pet I rejected, I see an rejection indicator next to the pet instead of an reject button" do
+      within("#pet-application-status-#{@pet1.id}") do
+        click_button "Reject Pet"
+        expect(page).to have_content("rejected")
+        expect(page).to_not have_button("Reject Pet")
+      end
+      within("#pet-application-status-#{@pet2.id}") do
+        click_button "Reject Pet"
+        expect(page).to have_content("rejected")
+        expect(page).to_not have_button("Reject Pet")
       end
     end
   end
