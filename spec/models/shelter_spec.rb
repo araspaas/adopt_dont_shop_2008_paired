@@ -12,6 +12,7 @@ describe Shelter, type: :model do
   describe "relationships" do
     it { should have_many :pets }
     it { should have_many :reviews }
+    it { should have_many(:applications).through(:pets) }
   end
 
   describe "instance methods" do
@@ -58,6 +59,19 @@ describe Shelter, type: :model do
       expect(shelter1.app_count).to eq(2)
       expect(shelter2.app_count).to eq(1)
       expect(shelter3.app_count).to eq(0)
+    end
+    it "#deletable?" do
+      user = User.create!(name: "Tim Tyrell", address: "321 you hate to see it dr", city: "Denver", state: "Colorado", zip: "80000")
+      shelter = Shelter.create(name: "Van's pet shop", address: "3724 tennessee dr", city: "Rockford", state: "Illinois", zip: "61108")
+      pet = shelter.pets.create(image: "https://static.insider.com/image/5d24d6b921a861093e71fef3.jpg", name: "Maisy", age: "6", sex: "female", description: "Stomache on legs", status: 0)
+      application = user.applications.create(description: "I'm awesome, give me animals.", status: 1)
+      application.application_pets.create(pet_id: pet.id)
+
+      expect(shelter.deletable?).to eq(true)
+
+      application.update(status: 2)
+
+      expect(shelter.deletable?).to eq(false)
     end
   end
 end
