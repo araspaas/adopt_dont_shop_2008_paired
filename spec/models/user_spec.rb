@@ -43,7 +43,7 @@ describe User, type: :model do
       expect(user1.best_review).to eq(review1)
       expect(user2.best_review).to eq(nil)
     end
-    it "text" do
+    it ".worst_review" do
       shelter1 = create(:shelter)
       shelter2 = create(:shelter)
       shelter3 = create(:shelter)
