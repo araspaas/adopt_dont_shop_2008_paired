@@ -1,6 +1,7 @@
 <main>
 <h1>Welcome to <%= link_to "#{@shelter.name}", "/shelters/#{@shelter.id}"  %> Pets Page</h1>
 
+<h3>Pets in this shelter: <%= @shelter.count_pets %></h3>
 <% @shelter.pets.each do |pet| %>
   <section class="pets-<%= pet.id %>">
   <img class="pet-image" src=<%= pet.image %>>
@@ -8,7 +9,6 @@
   <h3>Approximate Age: <%= pet.age %></h3>
   <h3>Sex: <%= pet.sex %></h3>
   <h3>Adoption Status: <%= pet.status %></h3>
-  <h3>Pets in this shelter: <%= @shelter.count_pets %></h3>
   <%= link_to "Update Pet", "/pets/#{pet.id}/edit" %><br>
   <%= link_to "Delete Pet", "/pets/#{pet.id}/delete", method: :delete %><br><br>
   </section>
