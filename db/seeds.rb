@@ -27,4 +27,4 @@ review1 = user1.reviews.create!({title: "Great Shelter!", rating: "4", content: 
 review2 = user1.reviews.create!({title: "Awful Shelter!", rating: "2", content: "I had a horrible experience here!", shelter_id: shelter2.id})
 
 application1 = user2.applications.create(description: "I'm awesome, give me animals.", status: 1)
-application1.application_pets.create([{pet_id: pet1.id}, {pet_id: pet2.id}, {pet_id: pet3.id}, {pet_id: pet4.id}])
+application1.application_pets.create([{pet_id: pet1.id}])
