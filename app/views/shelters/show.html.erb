@@ -21,7 +21,9 @@
   </section>
 <% end %>
 <%= link_to "Update Shelter", "/shelters/#{@shelter.id}/edit" %><br>
-<%= link_to "Delete Shelter", "/shelters/#{@shelter.id}", method: :delete %><br>
+<% if @shelter.deletable? %>
+  <%= link_to "Delete Shelter", "/shelters/#{@shelter.id}", method: :delete %><br>
+<% end %>
 <%= link_to "Pets", "/shelters/#{@shelter.id}/pets" %><br>
 <%= link_to "Add Review", "/shelters/#{@shelter.id}/reviews/new" %><br>
 </main>
