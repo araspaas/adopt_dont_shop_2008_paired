@@ -8,13 +8,6 @@ class User < ApplicationRecord
   has_many :shelters, through: :reviews
   has_many :applications
 
-  def average_review_rating
-    avg = reviews.average(:rating)
-    if avg.nil?
-      avg = 0
-    end
-    avg
-  end
 
   def best_review
     reviews.order(rating: :desc).limit(1).first
