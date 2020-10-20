@@ -52,5 +52,22 @@ describe "As a visitor" do
         expect(page).to_not have_button("Reject Pet")
       end
     end
+    describe "and I approve all pets for and application" do
+      it "then I am taken back to the admin application show page and I see the applications's status has changed to 'approved'" do
+        expect(page).to have_content("Status: pending")
+
+        within("#pet-application-status-#{@pet1.id}") do
+          click_button "Approve Pet"
+        end
+
+        expect(page).to have_content("Status: pending")
+
+        within("#pet-application-status-#{@pet2.id}") do
+          click_button "Approve Pet"
+        end
+
+        expect(page).to have_content("Status: approved")
+      end
+    end
   end
 end
