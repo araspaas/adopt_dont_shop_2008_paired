@@ -84,5 +84,39 @@ describe "As a visitor" do
         expect(page).to have_content("Status: rejected")
       end
     end
+    describe "When a pet has and approved application on them" do
+      describe "I as an admin cannot approve or reject them for another app" do
+        it "And I see a message telling me that this pet has been approved for adoption" do
+          @user2 = User.create!(name: "John Doe", address: "123 candy cane lane", city: "Denver", state: "Colorado", zip: "80128")
+          @application2 = @user2.applications.create(description: "Just cuz", status: 1)
+          @application2.application_pets.create([{pet_id: @pet1.id}, {pet_id: @pet2.id}])
+          expect(page).to have_content("Status: pending")
+
+          within("#pet-application-status-#{@pet1.id}") do
+            click_button "Approve Pet"
+          end
+
+          expect(page).to have_content("Status: pending")
+
+          within("#pet-application-status-#{@pet2.id}") do
+            click_button "Approve Pet"
+          end
+
+          expect(page).to have_content("Status: approved")
+
+          visit "/admin/applications/#{@application2.id}"
+
+          within("#pet-application-status-#{@pet1.id}") do
+            expect(page).to_not have_button("Approve Pet")
+            expect(page).to have_content("This pet has already been approved for adoption")
+          end
+
+          within("#pet-application-status-#{@pet2.id}") do
+            expect(page).to_not have_button("Approve Pet")
+            expect(page).to have_content("This pet has already been approved for adoption")
+          end
+        end
+      end
+    end
   end
 end
