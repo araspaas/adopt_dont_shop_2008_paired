@@ -1,4 +1,4 @@
-<main>  
+<main>
 <h1>Welcome To <%= @pet.name %>'s Page</h1>
 
 <img class="pet-image" src=<%= @pet.image %>>
@@ -8,5 +8,7 @@
 <p>Sex: <%= @pet.sex %></p>
 <p>Adoption status: <%= @pet.status %></p>
 <%= link_to "Update Pet", "/pets/#{@pet.id}/edit" %><br>
-<%= link_to "Delete Pet", "/pets/#{@pet.id}/delete", method: :delete %>
+<%= link_to "Delete Pet", "/pets/#{@pet.id}/delete", method: :delete %><br>
+<%= link_to "Applications for #{@pet.name}", "/pets/#{@pet.id}/applications" %>
+
 </main>
