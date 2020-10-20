@@ -31,5 +31,43 @@ describe Application, type: :model do
 
       expect(application.pet_names).to eq([pet1, pet2, pet3, pet4])
     end
+    it "#application_approved?" do
+      user = User.create!(name: "Tim Tyrell", address: "321 you hate to see it dr", city: "Denver", state: "Colorado", zip: "80000")
+      shelter = Shelter.create(name: "Van's pet shop", address: "3724 tennessee dr", city: "Rockford", state: "Illinois", zip: "61108")
+      pet1 = shelter.pets.create(image: "https://img.webmd.com/dtmcms/live/webmd/consumer_assets/site_images/article_thumbnails/other/dog_cool_summer_slideshow/1800x1200_dog_cool_summer_other.jpg", name: "Bella", age: "5", sex: "female", description: "Fun Loving Dog", status: 0)
+      pet2 = shelter.pets.create(image: "https://static.insider.com/image/5d24d6b921a861093e71fef3.jpg", name: "Maisy", age: "6", sex: "female", description: "Stomache on legs", status: 0)
+      application = user.applications.create(description: "I'm awesome, give me animals.", status: 1)
+      app_pet1 = application.application_pets.create(pet_id: pet1.id)
+      app_pet2 =application.application_pets.create(pet_id: pet2.id)
+
+      expect(application.application_approved?).to eq(false)
+
+      app_pet1.update(status: 1)
+
+      expect(application.application_approved?).to eq(false)
+
+      app_pet2.update(status: 1)
+
+      expect(application.application_approved?).to eq(true)
+    end
+    it "#application_rejected?" do
+      user = User.create!(name: "Tim Tyrell", address: "321 you hate to see it dr", city: "Denver", state: "Colorado", zip: "80000")
+      shelter = Shelter.create(name: "Van's pet shop", address: "3724 tennessee dr", city: "Rockford", state: "Illinois", zip: "61108")
+      pet1 = shelter.pets.create(image: "https://img.webmd.com/dtmcms/live/webmd/consumer_assets/site_images/article_thumbnails/other/dog_cool_summer_slideshow/1800x1200_dog_cool_summer_other.jpg", name: "Bella", age: "5", sex: "female", description: "Fun Loving Dog", status: 0)
+      pet2 = shelter.pets.create(image: "https://static.insider.com/image/5d24d6b921a861093e71fef3.jpg", name: "Maisy", age: "6", sex: "female", description: "Stomache on legs", status: 0)
+      application = user.applications.create(description: "I'm awesome, give me animals.", status: 1)
+      app_pet1 = application.application_pets.create(pet_id: pet1.id)
+      app_pet2 =application.application_pets.create(pet_id: pet2.id)
+
+      expect(application.application_rejected?).to eq(false)
+
+      app_pet1.update(status: 1)
+
+      expect(application.application_rejected?).to eq(false)
+
+      app_pet2.update(status: 2)
+
+      expect(application.application_rejected?).to eq(true)
+    end
   end
 end
