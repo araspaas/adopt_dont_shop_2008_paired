@@ -6,15 +6,18 @@
 <p>Shelter City: <%= @shelter.city %></p>
 <p>Shelter State: <%= @shelter.state %></p>
 <p>Shelter Zip: <%= @shelter.zip %></p><br>
+<p>Average shelter Review rating: <%= @shelter.average_review_rating%></p>
+<p>Pets in this shelter: <%= @shelter.count_pets %></p>
+<p>Applications for pets: <%= @shelter.app_count %></p>
 <p>Shelter Reviews: <% @shelter.reviews.each do |review| %></p>
   <section id="review-<%= review.id %>">
     <p>Review Title: <%= review.title %></p>
     <p>Review Rating: <%= review.rating %></p>
     <p>Review Content: <%= review.content %></p>
     <p>User: <%= review.user.name %></p>
-    <%= image_tag review.image, size:'480x360' if review.image %>
+    <%= image_tag review.image, size:'480x360' if review.image %><br>
     <%= link_to "Edit Review", "/shelters/#{@shelter.id}/reviews/#{review.id}/edit" %><br>
-    <%= link_to "Delete Review", "/shelters/#{@shelter.id}/reviews/#{review.id}/delete", method: :delete %>
+    <%= link_to "Delete Review", "/shelters/#{@shelter.id}/reviews/#{review.id}/delete", method: :delete %><br><br>
   </section>
 <% end %>
 <%= link_to "Update Shelter", "/shelters/#{@shelter.id}/edit" %><br>
