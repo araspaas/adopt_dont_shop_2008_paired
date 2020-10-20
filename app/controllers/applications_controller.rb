@@ -1,4 +1,9 @@
 class ApplicationsController < ApplicationController
+
+  def index
+    @pet = Pet.find(params[:id])
+  end
+
   def show
     @application = Application.find(params[:id])
     @search_results = Pet.search(params[:search]) if params[:search]
