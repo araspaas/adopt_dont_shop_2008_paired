@@ -19,4 +19,8 @@ class Application < ApplicationRecord
   def application_approved?
     application_pets.pluck(:status).all?('accepted')
   end
+
+  def application_rejected?
+    application_pets.pluck(:status).any?('rejected')
+  end
 end
