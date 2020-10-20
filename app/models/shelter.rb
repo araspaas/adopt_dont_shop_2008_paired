@@ -18,4 +18,8 @@ class Shelter < ApplicationRecord
   def app_count
     applications.distinct.count
   end
+
+  def deletable?
+    applications.pluck(:status).none?('approved')
+  end
 end
