@@ -41,3 +41,8 @@ main {
 img {
    width: 300px;
  }
+
+#top-3 {
+  position:relative;
+  float:right;
+}
