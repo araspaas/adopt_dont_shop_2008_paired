@@ -78,5 +78,27 @@ describe "As a visitor" do
       click_link "Pets Index"
       expect(current_path).to eq("/pets")
     end
+    it "I see the top 3 highest rated shelters hilighted on a specific part of the page" do
+      shelter1 = create(:shelter)
+      shelter2 = create(:shelter)
+      shelter3 = create(:shelter)
+      shelter4 = create(:shelter)
+      user1 = User.create!(name: "John Doe", address: "123 candy cane lane", city: "Denver", state: "Colorado", zip: "80128")
+      user2 = User.create!(name: "Tim Tyrell", address: "123 candy cane lane", city: "Denver", state: "Colorado", zip: "80128")
+      user3 = User.create!(name: "Brian Zanti", address: "123 candy cane lane", city: "Denver", state: "Colorado", zip: "80128")
+      review1 = user1.reviews.create!({title: "Great Shelter!", rating: "5", content: "I had a great experience here!", image: "https://cdn.pixabay.com/photo/2017/11/15/13/52/bulldog-2952049_960_720.jpg", shelter_id: shelter1.id})
+      review2 = user1.reviews.create!({title: "Awful Shelter!", rating: "3", content: "I had a horrible experience here!", shelter_id: shelter2.id})
+      review3 = user1.reviews.create!({title: "Blah Shelter!", rating: "4", content: "I had a horrible experience here!", shelter_id: shelter3.id})
+      review4 = user1.reviews.create!({title: "Meh Shelter!", rating: "2", content: "I had a horrible experience here!", shelter_id: shelter4.id})
+      review5 = user2.reviews.create!({title: "Blarg Shelter!", rating: "1", content: "I had a horrible experience here!", shelter_id: shelter4.id})
+
+      visit "/shelters"
+
+      within "#top-3" do
+        expect(page).to have_link("#{shelter1.name} Rating: #{shelter1.average_review_rating}")
+        expect(page).to have_link("#{shelter3.name} Rating: #{shelter3.average_review_rating}")
+        expect(page).to have_link("#{shelter2.name} Rating: #{shelter2.average_review_rating}")
+      end
+    end
   end
 end
