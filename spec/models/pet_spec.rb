@@ -27,4 +27,21 @@ describe Pet, type: :model do
       expect(Pet.search("f")).to eq([pet4, pet5])
     end
   end
+
+  describe "instance methods" do
+    it "#deletable?" do
+      shelter = Shelter.create(name: "Van's pet shop", address: "3724 tennessee dr", city: "Rockford", state: "Illinois", zip: "61108")
+      pet = shelter.pets.create(image: "https://img.webmd.com/dtmcms/live/webmd/consumer_assets/site_images/article_thumbnails/other/dog_cool_summer_slideshow/1800x1200_dog_cool_summer_other.jpg", name: "Bella", age: "5", sex: "female", description: "Fun Loving Dog", status: 0)
+      user = User.create!(name: "Tim Tyrell", address: "321 you hate to see it dr", city: "Denver", state: "Colorado", zip: "80000")
+      application = user.applications.create(description: "I'm awesome, give me animals.", status: 1)
+      application.application_pets.create({pet_id: pet.id})
+
+      expect(pet.deletable?).to eq(true)
+
+      application.update(status: 2)
+      pet.update(status: 2)
+
+      expect(pet.deletable?).to eq(false)
+    end
+  end
 end
