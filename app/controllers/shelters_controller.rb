@@ -2,6 +2,7 @@ class SheltersController < ApplicationController
 
   def index
     @shelters = Shelter.all
+    @top_3 = Shelter.top_3
   end
 
   def show

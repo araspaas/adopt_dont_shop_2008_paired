@@ -1,6 +1,15 @@
 <main>
 <h1>Welcome to the Shelters Home Page</h1>
 
+<div id="top-3">
+  <%= content_tag :p, "Top Shelters:" %>
+  <ol>
+  <% @top_3.each do |shelter| %>
+    <li><%= link_to "#{shelter.name} Rating: #{shelter.average_review_rating}", "/shelters/#{shelter.id}" %></li><br><br>
+  <% end %>
+</ol>
+</div>
+
 <% @shelters.each do |shelter| %>
 <section class="shelter-<%= shelter.id %>">
   <%= link_to "#{shelter.name}", "/shelters/#{shelter.id}" %><br>
