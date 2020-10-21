@@ -73,5 +73,39 @@ describe Shelter, type: :model do
 
       expect(shelter.deletable?).to eq(false)
     end
+    it "#delete_pets" do
+      user = User.create!(name: "Tim Tyrell", address: "321 you hate to see it dr", city: "Denver", state: "Colorado", zip: "80000")
+      shelter = Shelter.create(name: "Van's pet shop", address: "3724 tennessee dr", city: "Rockford", state: "Illinois", zip: "61108")
+      pet1 = shelter.pets.create(image: "https://static.insider.com/image/5d24d6b921a861093e71fef3.jpg", name: "Maisy", age: "6", sex: "female", description: "Stomache on legs", status: 0)
+      pet2 = shelter.pets.create(image: "https://static.insider.com/image/5d24d6b921a861093e71fef3.jpg", name: "Maisy", age: "6", sex: "female", description: "Stomache on legs", status: 0)
+      application = user.applications.create(description: "I'm awesome, give me animals.", status: 1)
+      application.application_pets.create([{pet_id: pet1.id}, {pet_id: pet2.id}])
+      pet1_id = pet1.id
+      pet2_id = pet2.id
+
+      expect(Pet.exists?(pet1_id)).to eq(true)
+      expect(Pet.exists?(pet2_id)).to eq(true)
+
+      shelter.delete_pets
+
+      expect(Pet.exists?(pet1_id)).to eq(false)
+      expect(Pet.exists?(pet2_id)).to eq(false)
+    end
+    it "#delete_reviews" do
+      user = User.create!(name: "Tim Tyrell", address: "321 you hate to see it dr", city: "Denver", state: "Colorado", zip: "80000")
+      shelter = Shelter.create(name: "Van's pet shop", address: "3724 tennessee dr", city: "Rockford", state: "Illinois", zip: "61108")
+      review1 = user.reviews.create!({title: "Great Shelter!", rating: "4", content: "I had a great experience here!", image: "https://cdn.pixabay.com/photo/2017/11/15/13/52/bulldog-2952049_960_720.jpg", shelter_id: shelter.id})
+      review2 = user.reviews.create!({title: "Awful Shelter!", rating: "2", content: "I had a horrible experience here!", shelter_id: shelter.id})
+      review1_id = review1.id
+      review2_id = review2.id
+
+      expect(Review.exists?(review1_id)).to eq(true)
+      expect(Review.exists?(review2_id)).to eq(true)
+
+      shelter.delete_reviews
+
+      expect(Review.exists?(review1_id)).to eq(false)
+      expect(Review.exists?(review2_id)).to eq(false)
+    end
   end
 end
