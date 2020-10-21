@@ -19,10 +19,6 @@ class Shelter < ApplicationRecord
     applications.distinct.count
   end
 
-  def deletable?
-    applications.pluck(:status).none?('approved')
-  end
-
   def delete_pets
     pets.each do |pet|
       pet.applications.clear

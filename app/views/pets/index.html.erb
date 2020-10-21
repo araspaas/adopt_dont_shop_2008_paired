@@ -9,7 +9,9 @@
       <p>Sex: <%= pet.sex %></p>
       <p>Belongs To: <%= link_to "#{pet.shelter.name}", "/shelters/#{pet.shelter.id}" %></p>
       <%= link_to "Update Pet", "/pets/#{pet.id}/edit" %><br>
-      <%= link_to "Delete Pet", "/pets/#{pet.id}/delete", method: :delete %><br><br>
+      <% if pet.deletable? %>
+        <%= link_to "Delete Pet", "/pets/#{pet.id}/delete", method: :delete %><br><br>
+      <% end %>
     </section>
   <% end %>
   <%= link_to "Start an Application", "/applications/new" %>
