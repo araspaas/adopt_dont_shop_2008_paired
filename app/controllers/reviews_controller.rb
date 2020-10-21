@@ -53,9 +53,6 @@ class ReviewsController < ApplicationController
 
   def save_review(user)
     @review = user.reviews.new(review_params)
-    if review_params[:image] == ""
-      review_params[:image] = default_image
-    end
     if @review.save
       redirect_to "/shelters/#{params[:shelter_id]}"
     else

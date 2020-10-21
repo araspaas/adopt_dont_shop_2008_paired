@@ -31,4 +31,12 @@ class Shelter < ApplicationRecord
       review.delete
     end
   end
+
+  def self.top_3
+    select('shelters.*, AVG(reviews.rating)')
+    .joins(:reviews)
+    .group('shelters.id')
+    .order('AVG(reviews.rating) DESC')
+    .limit(3)
+  end
 end
