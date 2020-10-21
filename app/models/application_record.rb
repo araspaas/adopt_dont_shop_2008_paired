@@ -8,4 +8,9 @@ class ApplicationRecord < ActiveRecord::Base
     end
     avg.to_f
   end
+
+  def deletable?
+    applications.pluck(:status).none?('approved')
+  end
+
 end
