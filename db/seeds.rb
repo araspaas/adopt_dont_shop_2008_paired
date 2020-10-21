@@ -25,6 +25,3 @@ user2 = User.create!(name: "Tim Tyrell", address: "321 you hate to see it dr", c
 
 review1 = user1.reviews.create!({title: "Great Shelter!", rating: "4", content: "I had a great experience here!", image: "https://cdn.pixabay.com/photo/2017/11/15/13/52/bulldog-2952049_960_720.jpg", shelter_id: shelter1.id})
 review2 = user1.reviews.create!({title: "Awful Shelter!", rating: "2", content: "I had a horrible experience here!", shelter_id: shelter2.id})
-
-application1 = user2.applications.create(description: "I'm awesome, give me animals.", status: 1)
-application1.application_pets.create([{pet_id: pet1.id}])
