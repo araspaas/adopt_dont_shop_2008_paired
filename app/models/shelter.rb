@@ -22,4 +22,17 @@ class Shelter < ApplicationRecord
   def deletable?
     applications.pluck(:status).none?('approved')
   end
+
+  def delete_pets
+    pets.each do |pet|
+      pet.applications.clear
+      pet.delete
+    end
+  end
+
+  def delete_reviews
+    reviews.each do |review|
+      review.delete
+    end
+  end
 end
