@@ -8,7 +8,9 @@
 <p>Sex: <%= @pet.sex %></p>
 <p>Adoption status: <%= @pet.status %></p>
 <%= link_to "Update Pet", "/pets/#{@pet.id}/edit" %><br>
-<%= link_to "Delete Pet", "/pets/#{@pet.id}/delete", method: :delete %><br>
+<% if @pet.deletable? %>
+  <%= link_to "Delete Pet", "/pets/#{@pet.id}/delete", method: :delete %><br>
+<% end %>
 <%= link_to "Applications for #{@pet.name}", "/pets/#{@pet.id}/applications" %>
 
 </main>
